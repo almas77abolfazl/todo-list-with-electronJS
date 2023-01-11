@@ -1,0 +1,25 @@
+{
+  "name": "todo-list-with-electronjs",
+  "version": "1.0.0",
+  "description": "This is a todo list project with Electron JS.",
+  "type": "commonjs",
+  "scripts": {
+    "copyHtml": "xcopy \"./src\" \"./dist\"",
+    "build": "tsc",
+    "start": "tsc && electron ./dist/index.js",
+    "pack": "electron-packager . sample --out=dist --arch=x64 --platform=win32 --electron-version=3.0.3 --overwrite --prune --ignore=dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/almas77abolfazl/todo-list-with-electronJS.git"
+  },
+  "author": "Abolfazl Nasiri Almas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/almas77abolfazl/todo-list-with-electronJS/issues"
+  },
+  "homepage": "https://github.com/almas77abolfazl/todo-list-with-electronJS#readme",
+  "devDependencies": {
+    "electron": "22.0.1"
+  }
+}
