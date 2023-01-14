@@ -1,22 +1,15 @@
-import { app, ipcMain } from "electron";
-import * as path from "path";
+import electron from "electron";
 import Window from "./window";
-// import DataStore from './data_store'
 
 let mainWindow: Window, todoWindow: Window | null;
 
-let file = path.join(process.cwd(), "./dist/index.html");
-let addFile = path.join(process.cwd(), "add.html");
+let file = `${__dirname}/index.html`;
+let addFile = `${__dirname}/gui/ADD_LIST.html`;
 
 function createMainWindow() {
   mainWindow = new Window(file);
   mainWindow.webContents.send("updateHTML", true);
-
-  mainWindow.once("show", () => {
-    // mainWindow.webContents.send("todos", todoData.getTodos());
-  });
-
-  ipcMain.on("add-todo-window", createTodoWindow);
+  electron.ipcMain.on("add-list", createTodoWindow);
 }
 
 function createTodoWindow() {
@@ -36,7 +29,5 @@ function createTodoWindow() {
   }
 }
 
-function updateHTML() {}
-
-app.on("ready", createMainWindow);
-app.on("window-all-closed", app.quit);
+electron.app.on("ready", createMainWindow);
+electron.app.on("window-all-closed", electron.app.quit);

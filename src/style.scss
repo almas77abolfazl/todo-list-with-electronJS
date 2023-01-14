@@ -13,11 +13,21 @@ body {
 
     .list-section {
       flex: 1;
-      background-color: red;
+
+      .list-container {
+        height: 90%;
+      }
+      .add-list-button {
+      }
     }
     .task-section {
       flex: 2;
-      background-color: blue;
+
+      .task-container {
+        height: 90%;
+      }
+      .add-task-button {
+      }
     }
   }
 }

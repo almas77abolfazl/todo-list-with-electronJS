@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
-// (...) file:{file:string} pass as object opecional o rest
 const defaultProps = {
     width: 800,
     height: 800,

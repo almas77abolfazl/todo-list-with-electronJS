@@ -1,5 +1,5 @@
 import { BrowserWindow } from "electron";
-// (...) file:{file:string} pass as object opecional o rest
+
 const defaultProps = {
   width: 800,
   height: 800,
