@@ -4,7 +4,7 @@
   "description": "This is a todo list project with Electron JS.",
   "type": "commonjs",
   "scripts": {
-    "copyHtml": "copy .\\src\\index.html  .\\dist",
+    "copyHtml": "copy .\\src\\index.html .\\dist && xcopy .\\src\\gui .\\dist\\gui",
     "compileCSS": "sass ./src/style.scss ./dist/style.css",
     "build": "tsc && npm run compileCSS && npm run copyHtml",
     "start": "npm run build && electron ./dist/index.js",

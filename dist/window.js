@@ -3,11 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const electron_1 = require("electron");
 // (...) file:{file:string} pass as object opecional o rest
 const defaultProps = {
-    width: 500,
+    width: 800,
     height: 800,
     show: false,
     webPreferences: {
         nodeIntegration: true,
+        contextIsolation: false,
+        enableRemoteModule: true,
     },
 };
 class Window extends electron_1.BrowserWindow {

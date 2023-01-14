@@ -35,6 +35,7 @@ let file = path.join(process.cwd(), "./dist/index.html");
 let addFile = path.join(process.cwd(), "add.html");
 function createMainWindow() {
     mainWindow = new window_1.default(file);
+    mainWindow.webContents.send("updateHTML", true);
     mainWindow.once("show", () => {
         // mainWindow.webContents.send("todos", todoData.getTodos());
     });
@@ -54,5 +55,6 @@ function createTodoWindow() {
         todoWindow.removeMenu();
     }
 }
+function updateHTML() { }
 electron_1.app.on("ready", createMainWindow);
 electron_1.app.on("window-all-closed", electron_1.app.quit);
