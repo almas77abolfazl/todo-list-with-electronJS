@@ -5,7 +5,7 @@ import Window from "./window";
 
 let mainWindow: Window, todoWindow: Window | null;
 
-let file = path.join(process.cwd(), "index.html");
+let file = path.join(process.cwd(), "./dist/index.html");
 let addFile = path.join(process.cwd(), "add.html");
 
 function createMainWindow() {

@@ -4,9 +4,9 @@
   "description": "This is a todo list project with Electron JS.",
   "type": "commonjs",
   "scripts": {
-    "copyHtml": "xcopy \"./src\" \"./dist\"",
+    "copyHtml": "copy .\\src\\index.html  .\\dist",
     "compileCSS": "sass ./src/style.scss ./dist/style.css",
-    "build": "tsc && npm run compileCSS",
+    "build": "tsc && npm run compileCSS && npm run copyHtml",
     "start": "npm run build && electron ./dist/index.js",
     "pack": "electron-packager . sample --out=dist --arch=x64 --platform=win32 --electron-version=3.0.3 --overwrite --prune --ignore=dist"
   },

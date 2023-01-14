@@ -31,7 +31,7 @@ const path = __importStar(require("path"));
 const window_1 = __importDefault(require("./window"));
 // import DataStore from './data_store'
 let mainWindow, todoWindow;
-let file = path.join(process.cwd(), "index.html");
+let file = path.join(process.cwd(), "./dist/index.html");
 let addFile = path.join(process.cwd(), "add.html");
 function createMainWindow() {
     mainWindow = new window_1.default(file);
