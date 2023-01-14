@@ -10,6 +10,7 @@ let addFile = path.join(process.cwd(), "add.html");
 
 function createMainWindow() {
   mainWindow = new Window(file);
+  mainWindow.webContents.send("updateHTML", true);
 
   mainWindow.once("show", () => {
     // mainWindow.webContents.send("todos", todoData.getTodos());
@@ -34,6 +35,8 @@ function createTodoWindow() {
     todoWindow.removeMenu();
   }
 }
+
+function updateHTML() {}
 
 app.on("ready", createMainWindow);
 app.on("window-all-closed", app.quit);
