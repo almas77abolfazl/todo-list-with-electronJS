@@ -7,6 +7,7 @@
     "copyHtml": "copy .\\src\\index.html .\\dist && xcopy .\\src\\gui .\\dist\\gui /Y",
     "compileCSS": "sass ./src/style.scss ./dist/style.css",
     "build": "tsc && npm run compileCSS && npm run copyHtml",
+    "webpack": "npx webpack --config webpack.config.js",
     "start": "npm run build && electron ./dist/index.js",
     "pack": "electron-packager . sample --out=dist --arch=x64 --platform=win32 --electron-version=3.0.3 --overwrite --prune --ignore=dist"
   },
@@ -21,6 +22,10 @@
   },
   "homepage": "https://github.com/almas77abolfazl/todo-list-with-electronJS#readme",
   "devDependencies": {
-    "electron": "22.0.1"
+    "electron": "22.0.1",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }
