@@ -1,4 +1,6 @@
-const fs = require("fs");
+import fs from "fs";
+import './style.scss';
+
 
 loadTemplates();
 
@@ -30,7 +32,7 @@ function loadTemplates() {
       );
     }
     if (array.length === index + 1)
-      setTimeout((t) => {
+      setTimeout((t: any) => {
         loadTemplates();
         clearTimeout(t);
       }, 50);

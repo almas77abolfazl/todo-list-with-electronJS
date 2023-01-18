@@ -4,11 +4,8 @@
   "description": "This is a todo list project with Electron JS.",
   "type": "commonjs",
   "scripts": {
-    "copyHtml": "copy .\\src\\index.html .\\dist && xcopy .\\src\\gui .\\dist\\gui /Y",
-    "compileCSS": "sass ./src/style.scss ./dist/style.css",
-    "build": "tsc && npm run compileCSS && npm run copyHtml",
-    "webpack": "npx webpack --config webpack.config.js",
-    "start": "npm run build && electron ./dist/index.js",
+    "build": "npx webpack --config webpack.config.js",
+    "start": "npm run build && electron ./dist/main.js",
     "pack": "electron-packager . sample --out=dist --arch=x64 --platform=win32 --electron-version=3.0.3 --overwrite --prune --ignore=dist"
   },
   "repository": {
@@ -22,7 +19,12 @@
   },
   "homepage": "https://github.com/almas77abolfazl/todo-list-with-electronJS#readme",
   "devDependencies": {
+    "css-loader": "^6.7.3",
     "electron": "22.0.1",
+    "html-webpack-plugin": "^5.5.0",
+    "sass": "^1.57.1",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
     "ts-loader": "^9.4.2",
     "typescript": "^4.9.4",
     "webpack": "^5.75.0",
