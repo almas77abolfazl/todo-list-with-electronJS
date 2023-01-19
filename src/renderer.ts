@@ -1,5 +1,4 @@
 import fs from "fs";
-import './style.scss';
 
 
 loadTemplates();

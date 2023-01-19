@@ -11,14 +11,12 @@ const defaultProps = {
   },
 };
 
-class Window extends BrowserWindow {
-  constructor(
-    file: string,
-    windowSettings?: Electron.BrowserWindowConstructorOptions
-  ) {
-    super({ ...defaultProps, ...windowSettings }); //  must be a objet cause browser construct is a object
-    this.loadFile(file);
-    this.once("ready-to-show", this.show);
+class Window {
+  window: BrowserWindow;
+  constructor(file: string, options?: Electron.BrowserWindowConstructorOptions) {
+    this.window = new BrowserWindow({ ...defaultProps, ...options });
+    this.window.loadFile(file);
+    this.window.once("ready-to-show", this.window.show);
   }
 }
 

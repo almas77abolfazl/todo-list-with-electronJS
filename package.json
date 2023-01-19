@@ -4,9 +4,9 @@
   "description": "This is a todo list project with Electron JS.",
   "type": "commonjs",
   "scripts": {
-    "build": "npx webpack --config webpack.config.js",
-    "start": "npm run build && electron ./dist/main.js",
-    "pack": "electron-packager . sample --out=dist --arch=x64 --platform=win32 --electron-version=3.0.3 --overwrite --prune --ignore=dist"
+    "copyHtml": "xcopy .\\src\\gui\\ .\\dist\\gui\\ /Y",
+    "build": "npx webpack --config webpack.config.js && npm run copyHtml",
+    "start": "npm run build && electron ./dist/main.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "css-loader": "^6.7.3",
     "electron": "22.0.1",
     "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.2",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "style-loader": "^3.3.1",

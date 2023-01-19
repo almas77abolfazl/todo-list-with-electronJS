@@ -1,4 +1,4 @@
-import electron from "electron";
+import { app, ipcMain } from "electron";
 import Window from "./window";
 
 let mainWindow: Window, todoWindow: Window | null;
@@ -8,8 +8,8 @@ let addFile = `${__dirname}/gui/ADD_LIST.html`;
 
 function createMainWindow() {
   mainWindow = new Window(file);
-  mainWindow.webContents.send("updateHTML", true);
-  electron.ipcMain.on("add-list", createTodoWindow);
+  mainWindow.window.webContents.send("updateHTML", true);
+  ipcMain.on("add-list", createTodoWindow);
 }
 
 function createTodoWindow() {
@@ -17,17 +17,17 @@ function createTodoWindow() {
     todoWindow = new Window(addFile, {
       width: 200,
       height: 200,
-      parent: mainWindow,
+      parent: mainWindow.window,
       frame: false,
     });
 
-    todoWindow.on("closed", () => {
+    todoWindow.window.on("closed", () => {
       todoWindow = null;
     });
 
-    todoWindow.removeMenu();
+    todoWindow.window.removeMenu();
   }
 }
 
-electron.app.on("ready", createMainWindow);
-electron.app.on("window-all-closed", electron.app.quit);
+app.on("ready", createMainWindow);
+app.on("window-all-closed", app.quit);
