@@ -1,6 +1,5 @@
 import fs from "fs";
 
-
 loadTemplates();
 
 function loadTemplates() {
@@ -12,21 +11,10 @@ function loadTemplates() {
       fs.readFile(
         `${__dirname}/gui/${fileName}.html`,
         function read(err: any, data: any) {
-          if (err) {
-            throw err;
-          }
+          if (err) throw err;
           temp.innerHTML = data;
           temp.removeAttribute("temp");
-        }
-      );
-      fs.readFile(
-        `${__dirname}/controllers/${fileName}.js`,
-        function read(err: any, data: any) {
-          if (!err) {
-            const script = document.createElement("script");
-            script.src = `${__dirname}/controllers/${fileName}.js`;
-            document.head.appendChild(script);
-          }
+          import(`${__dirname}/controllers/${fileName}`).then();
         }
       );
     }
