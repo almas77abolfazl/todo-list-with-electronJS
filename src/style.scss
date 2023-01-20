@@ -2,10 +2,28 @@ body {
   margin: 0;
 }
 
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .main-page {
   width: 100%;
   height: 100vh;
-  background-color: aquamarine;
 
   .todo-list-container {
     display: flex;
@@ -13,21 +31,126 @@ body {
 
     .list-section {
       flex: 1;
+      background-color: #d5cea3;
+      box-shadow: 0px 0px 4px #000;
+      z-index: 2;
 
-      .list-container {
-        height: 90%;
-      }
-      .add-list-button {
+      li {
+        list-style: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        width: 100%;
+        cursor: pointer;
+        user-select: none;
+
+        &.is-selected {
+          background-color: #3c2a21;
+          color: #e5e5cb;
+        }
+
+        &:hover:not(.is-selected) {
+          background: #e5e5cb;
+          color: #000;
+        }
+        &:focus,
+        &:active,
+        &:visited {
+          background-color: #3c2a21;
+          color: #e5e5cb;
+        }
       }
     }
     .task-section {
       flex: 2;
+      background-color: #e5e5cb;
 
-      .task-container {
-        height: 90%;
-      }
-      .add-task-button {
+      .task {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 2px 0px;
+        background: #d7ccc8;
+        margin: 2px 0px;
+        user-select: none;
+        cursor: pointer;
+
+        &.completed p {
+          text-decoration: line-through;
+        }
+
+        &:hover {
+          background: #d2bcb4;
+        }
+
+        p {
+          margin: 8px 20px;
+        }
+
+        .actions-container {
+          margin: 0 20px;
+          display: flex;
+          align-items: center;
+
+          button {
+            margin: 2px;
+          }
+        }
       }
     }
   }
+
+  .list-container,
+  .task-container {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    header {
+      font-size: 20px;
+      width: 100%;
+      padding: 10px;
+    }
+  }
+
+  .add-list-button,
+  .add-task-button {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.primary-button {
+  background-color: #3c2a21;
+  color: #e5e5cb;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  user-select: none;
+  cursor: pointer;
+  &:hover {
+    background-color: #1a120b;
+  }
+}
+
+.secondary-button {
+  background-color: #d5cea3;
+  color: #000;
+  border: 1px solid #000;
+  padding: 5px 12px;
+  border-radius: 4px;
+  user-select: none;
+  cursor: pointer;
+  &:hover {
+    background-color: #bab385;
+  }
+}
+
+.hide {
+  display: none !important;
 }
