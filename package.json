@@ -6,7 +6,7 @@
   "scripts": {
     "copyHtml": "xcopy .\\src\\gui\\ .\\dist\\gui\\ /Y",
     "build": "npx webpack --config webpack.config.js && npm run copyHtml",
-    "start": "npm run build && electron ./dist/main.js"
+    "start": "npm run build && electron --inspect=5858 ./dist/main.js"
   },
   "repository": {
     "type": "git",
