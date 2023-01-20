@@ -1,10 +1,13 @@
 import { app, ipcMain } from "electron";
 import Window from "./window";
+import Store from "electron-store";
 
 let mainWindow: Window, todoWindow: Window | null;
 
 let file = `${__dirname}/index.html`;
 let addFile = `${__dirname}/gui/ADD_LIST.html`;
+
+const store = new Store();
 
 function createMainWindow() {
   mainWindow = new Window(file);
@@ -24,8 +27,6 @@ function createTodoWindow() {
     todoWindow.window.on("closed", () => {
       todoWindow = null;
     });
-
-    todoWindow.window.removeMenu();
   }
 }
 
