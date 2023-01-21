@@ -1,31 +1,43 @@
 import { ipcRenderer } from "electron";
+import { DomHelper } from "../helpers/dom-helper";
 import { Task } from "../interfaces/task.interface";
+import { TodoListContainer } from "./TODO_LIST_CONTAINER";
 
-const allTasks: Task[] = [];
+let allTasks: Task[] = [];
 let lastSelectedTaskActions: Element = null;
-const searchElement = document.querySelector.bind(document);
-const createElement = document.createElement.bind(document);
-const createTextNode = document.createTextNode.bind(document);
 
-searchElement(".add-task-button")?.addEventListener("click", addNewList);
-loadTasks();
+ipcRenderer.on(
+  "loadTasksByListId",
+  (event: Electron.IpcRendererEvent, lists: Task[]) => {
+    allTasks = lists;
+    console.table(allTasks);
+    updateTasks();
+  }
+);
 
-function addNewList(): void {
-  ipcRenderer.send("add-task", true);
+function updateTasks(): void {
+  removeTasksFromDom();
+  loadTasks();
+}
+
+function removeTasksFromDom(): void {
+  DomHelper.searchAllElement(".task")?.forEach((el) => {
+    el.remove();
+  });
 }
 
 function loadTasks(): void {
   if (allTasks.length) {
     allTasks.forEach((task) => {
-      const container = searchElement(".task-container");
-      const taskNode = createElement("div");
+      const container = DomHelper.searchElement(".task-container");
+      const taskNode = DomHelper.createElement("div");
       taskNode.setAttribute("id", task.id.toString());
 
-      const actionsNode = createElement("div");
-      const editButton = createElement("button");
-      const deleteButton = createElement("button");
-      const editText = createTextNode("edit");
-      const deleteText = createTextNode("delete");
+      const actionsNode = DomHelper.createElement("div");
+      const editButton = DomHelper.createElement("button");
+      const deleteButton = DomHelper.createElement("button");
+      const editText = DomHelper.createTextNode("edit");
+      const deleteText = DomHelper.createTextNode("delete");
       editButton.appendChild(editText);
       deleteButton.appendChild(deleteText);
       actionsNode.appendChild(editButton);
@@ -34,8 +46,8 @@ function loadTasks(): void {
       editButton.classList.add("secondary-button");
       deleteButton.classList.add("secondary-button");
 
-      const textNode = createElement("p");
-      const text = createTextNode(task.title);
+      const textNode = DomHelper.createElement("p");
+      const text = DomHelper.createTextNode(task.title);
       textNode.appendChild(text);
 
       taskNode.classList.add("task");
@@ -64,4 +76,14 @@ function onTaskDblClicked(event: PointerEvent): void {
   if (taskNode.classList.contains("completed")) {
     taskNode.classList.remove("completed");
   } else taskNode.classList.add("completed");
+}
+
+DomHelper.searchElement(".add-task-button")?.addEventListener(
+  "click",
+  addNewList
+);
+loadTasks();
+
+function addNewList(): void {
+  ipcRenderer.send("addTask", TodoListContainer.prototype.selectedListId);
 }

@@ -1,0 +1,9 @@
+<input id="taskTitle" type="text" placeholder="Task Title" />
+<input type="submit" value="save" onclick="addNewTask(taskTitle.value)" />
+
+<script>
+  const { ipcRenderer } = require("electron");
+  function addNewTask(value) {
+    if (value) ipcRenderer.send("saveTask", value);
+  }
+</script>

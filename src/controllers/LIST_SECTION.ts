@@ -1,52 +1,67 @@
 import { ipcRenderer } from "electron";
+import { DomHelper } from "../helpers/dom-helper";
 import { List } from "../interfaces/list.interface";
+import { TodoListContainer } from "./TODO_LIST_CONTAINER";
 
 let allLists: List[] = [];
-let lastSelectedList: HTMLLIElement = null;
-const searchElement = document.querySelector.bind(document);
-const searchAllElement = document.querySelectorAll.bind(document);
-const createElement = document.createElement.bind(document);
-const createTextNode = document.createTextNode.bind(document);
+let lastSelectedList: HTMLElement = null;
 
-searchElement(".add-list-button")?.addEventListener("click", addNewList);
-loadLists();
+ipcRenderer.on(
+  "loadLists",
+  (event: Electron.IpcRendererEvent, lists: List[]) => {
+    allLists = lists;
+    console.table(allLists);
+    updateLists();
+  }
+);
 
-ipcRenderer.on("lists", (event: Electron.IpcRendererEvent, lists: List[]) => {
-  allLists = lists;
+function updateLists(): void {
   removeListsFromDom();
   loadLists();
-});
-
-function removeListsFromDom(): void {
-  searchAllElement("li").forEach((el) => {
-    el.remove();
-  });
 }
 
-function addNewList(): void {
-  ipcRenderer.send("add-list", true);
+function removeListsFromDom(): void {
+  DomHelper.searchAllElement("li")?.forEach((el) => {
+    el.remove();
+  });
 }
 
 function loadLists(): void {
   if (allLists.length) {
     allLists.forEach((list, index) => {
-      const container = searchElement(".list-container");
-      const node = createElement("li");
-      const text = createTextNode(list.title);
-      node.appendChild(text);
-      container?.appendChild(node);
+      const container = DomHelper.searchElement(".list-container");
+      const listNode = DomHelper.createElement("li");
+      listNode.setAttribute("id", list.id.toString());
+      const text = DomHelper.createTextNode(list.title);
+      listNode.appendChild(text);
+      container?.appendChild(listNode);
       if (index === 0) {
-        node.classList.add("is-selected");
-        lastSelectedList = node;
+        listNode.classList.add("is-selected");
+        lastSelectedList = listNode;
+        TodoListContainer.prototype.selectedListId = listNode.id;
+        ipcRenderer.send("getTasksByListId", listNode.id);
       }
-      node.addEventListener("click", onListClicked);
+      listNode.addEventListener("click", onListClicked);
     });
   }
 }
 
 function onListClicked(event: PointerEvent): void {
   const listNode = event.currentTarget as HTMLLIElement;
-  listNode.classList.add("is-selected");
-  if (lastSelectedList) lastSelectedList.classList.remove("is-selected");
-  lastSelectedList = listNode;
+  if (listNode.id !== lastSelectedList.id) {
+    listNode.classList.add("is-selected");
+    if (lastSelectedList) lastSelectedList.classList.remove("is-selected");
+    lastSelectedList = listNode;
+    TodoListContainer.prototype.selectedListId = listNode.id;
+    ipcRenderer.send("getTasksByListId", listNode.id);
+  }
+}
+
+DomHelper.searchElement(".add-list-button")?.addEventListener(
+  "click",
+  addNewList
+);
+
+function addNewList(): void {
+  ipcRenderer.send("addList", true);
 }

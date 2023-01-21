@@ -1,9 +1,9 @@
-<input id="listName" type="text" placeholder="List Name" />
-<input type="submit" value="save" onclick="addNewList(listName.value)" />
+<input id="listTitle" type="text" placeholder="List Title" />
+<input type="submit" value="save" onclick="addNewList(listTitle.value)" />
 
 <script>
   const { ipcRenderer } = require("electron");
   function addNewList(value) {
-    if (value) ipcRenderer.send("save-list", value);
+    if (value) ipcRenderer.send("saveList", value);
   }
 </script>
