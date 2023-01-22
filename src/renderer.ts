@@ -1,10 +1,8 @@
 import fs from "fs";
 
 loadTemplates();
-
-function loadTemplates() {
+function loadTemplates(): void {
   const allTemplates = document.querySelectorAll("div[temp]");
-
   allTemplates.forEach((temp: Element, index, array) => {
     const fileName = temp.innerHTML.replace(/@/gi, "");
     if (fileName) {
@@ -14,7 +12,7 @@ function loadTemplates() {
           if (err) throw err;
           temp.innerHTML = data;
           temp.removeAttribute("temp");
-          import(`${__dirname}/controllers/${fileName}`).then();
+          import(`${__dirname}/renderer/controllers/${fileName}`).then();
         }
       );
     }

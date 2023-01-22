@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron";
-import { DomHelper } from "../helpers/dom-helper";
-import { Task } from "../interfaces/task.interface";
+import { DomHelper } from "../../helpers/dom-helper";
+import { Task } from "../../interfaces/task.interface";
 import { TodoListContainer } from "./TODO_LIST_CONTAINER";
 
 let allTasks: Task[] = [];
@@ -10,7 +10,6 @@ ipcRenderer.on(
   "loadTasksByListId",
   (event: Electron.IpcRendererEvent, lists: Task[]) => {
     allTasks = lists;
-    console.table(allTasks);
     updateTasks();
   }
 );

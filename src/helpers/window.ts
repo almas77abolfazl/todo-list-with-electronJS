@@ -1,6 +1,6 @@
 import { BrowserWindow } from "electron";
 
-const defaultProps = {
+const defaultProps: Readonly<any> = {
   width: 800,
   height: 800,
   show: false,
@@ -13,7 +13,10 @@ const defaultProps = {
 
 class Window {
   window: BrowserWindow;
-  constructor(file: string, options?: Electron.BrowserWindowConstructorOptions) {
+  constructor(
+    file: string,
+    options?: Electron.BrowserWindowConstructorOptions
+  ) {
     this.window = new BrowserWindow({ ...defaultProps, ...options });
     this.window.loadFile(file);
     this.window.once("ready-to-show", this.window.show);

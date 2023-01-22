@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron";
-import { DomHelper } from "../helpers/dom-helper";
-import { List } from "../interfaces/list.interface";
+import { DomHelper } from "../../helpers/dom-helper";
+import { List } from "../../interfaces/list.interface";
 import { TodoListContainer } from "./TODO_LIST_CONTAINER";
 
 let allLists: List[] = [];
@@ -10,7 +10,6 @@ ipcRenderer.on(
   "loadLists",
   (event: Electron.IpcRendererEvent, lists: List[]) => {
     allLists = lists;
-    console.table(allLists);
     updateLists();
   }
 );
