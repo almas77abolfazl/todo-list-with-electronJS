@@ -28,6 +28,7 @@ function removeListsFromDom(): void {
 function loadLists(): void {
   const container = DomHelper.searchElement(".list-container");
   if (allLists.length) {
+    DomHelper.searchElement(".empty-list")?.remove();
     allLists.forEach((list, index) => {
       const listNode = DomHelper.createElement("li");
       listNode.setAttribute("id", list.id.toString());

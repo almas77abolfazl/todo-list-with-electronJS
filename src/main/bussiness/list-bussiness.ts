@@ -32,7 +32,7 @@ export function showListWindow(listId?: string): void {
   });
 }
 
-export function saveNewList(title: string, listId: string): void {
+export function saveList(title: string, listId: string): void {
   if (listId) {
     const list = allLists.find((x) => x.id === listId);
     list.title = title;

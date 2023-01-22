@@ -28,9 +28,11 @@ function removeTasksFromDom(): void {
 function loadTasks(): void {
   const container = DomHelper.searchElement(".task-container");
   if (allTasks.length) {
+    DomHelper.searchElement(".empty-task")?.remove();
     allTasks.forEach((task) => {
       const taskNode = DomHelper.createElement("div");
       taskNode.setAttribute("id", task.id.toString());
+      if (task.completed) taskNode.classList.add("completed");
 
       const actionsNode = DomHelper.createElement("div");
       const editButton = DomHelper.createElement("button");
@@ -56,6 +58,7 @@ function loadTasks(): void {
       taskNode.addEventListener("click", onTaskClicked);
       taskNode.addEventListener("dblclick", onTaskDblClicked);
       editButton.addEventListener("click", onTaskEditClicked);
+      deleteButton.addEventListener("click", onTaskDeleteClicked);
     });
   } else {
     const pNode = DomHelper.createElement("p");
@@ -79,9 +82,21 @@ function onTaskClicked(event: PointerEvent): void {
 
 function onTaskDblClicked(event: PointerEvent): void {
   const taskNode = event.currentTarget as HTMLDivElement;
+  let completed = null;
   if (taskNode.classList.contains("completed")) {
     taskNode.classList.remove("completed");
-  } else taskNode.classList.add("completed");
+    completed = false;
+  } else {
+    taskNode.classList.add("completed");
+    completed = true;
+  }
+  const lastSelectedTask = lastSelectedTaskActions?.parentElement;
+  ipcRenderer.send(
+    "completedChanges",
+    completed,
+    lastSelectedTask.id,
+    TodoListContainer.prototype.selectedListId
+  );
 }
 
 function onTaskEditClicked(event: PointerEvent): void {
@@ -91,6 +106,17 @@ function onTaskEditClicked(event: PointerEvent): void {
     TodoListContainer.prototype.selectedListId,
     taskNode.id
   );
+}
+
+function onTaskDeleteClicked(event: PointerEvent): void {
+  const taskNode = event.currentTarget["closest"](".task") as HTMLDivElement;
+  if (confirm("are you sure?!") == true) {
+    ipcRenderer.send(
+      "deleteTask",
+      TodoListContainer.prototype.selectedListId,
+      taskNode.id
+    );
+  }
 }
 
 DomHelper.searchElement(".add-task-button")?.addEventListener(

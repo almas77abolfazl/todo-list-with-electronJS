@@ -30,7 +30,7 @@ export function showTaskWindow(listId: string, taskId?: string): void {
   });
 }
 
-export function saveNewTask(title: string, taskId: string): void {
+export function saveTask(title: string, taskId: string): void {
   if (!!taskId) {
     const task = allTasks.find((x) => x.id === taskId);
     task.title = title;
@@ -48,7 +48,29 @@ export function saveNewTask(title: string, taskId: string): void {
   getTasksByListId(currentListId);
 }
 
+export function deleteTask(listId: string, taskId: string): void {
+  const taskIndex = allTasks.findIndex(
+    (x) => x.listId == listId && x.id == taskId
+  );
+  if (taskIndex >= 0) {
+    allTasks.splice(taskIndex, 1);
+    store.set("tasks", allTasks);
+    getTasksByListId(listId);
+  }
+}
+
 export function getTasksByListId(listId: string): void {
   const tasks = allTasks.filter((task) => task.listId == listId);
   mainWindow.window.webContents.send("loadTasksByListId", tasks);
+}
+
+export function completedChanges(
+  completed: boolean,
+  taskId: string,
+  listId: string
+): void {
+  const task = allTasks.find((task) => task.id == taskId);
+  task.completed = completed;
+  store.set("tasks", allTasks);
+  getTasksByListId(listId);
 }

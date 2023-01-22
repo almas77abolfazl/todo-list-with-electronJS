@@ -2,21 +2,23 @@ import { ipcMain } from "electron";
 import { mainWindow } from "../../main";
 import {
   showListWindow,
-  saveNewList,
+  saveList,
   sendAllLists,
   deleteList,
 } from "../bussiness/list-bussiness";
 import {
   showTaskWindow,
-  saveNewTask,
+  saveTask,
   getTasksByListId,
+  deleteTask,
+  completedChanges,
 } from "../bussiness/task-bussiness";
 
 export function onCreateMainWindow(): void {
   mainWindow.window.on("show", () => {
     setTimeout((t) => {
       sendAllLists();
-      clearTimeout(t)
+      clearTimeout(t);
     }, 500);
   });
 
@@ -29,7 +31,7 @@ export function onCreateMainWindow(): void {
   ipcMain.on(
     "saveList",
     (_event: Electron.IpcMainEvent, title: string, listId: string) => {
-      saveNewList(title, listId);
+      saveList(title, listId);
     }
   );
   ipcMain.on("deleteList", (_event: Electron.IpcMainEvent, listId: string) => {
@@ -45,15 +47,32 @@ export function onCreateMainWindow(): void {
     }
   );
   ipcMain.on(
+    "deleteTask",
+    (_event: Electron.IpcMainEvent, listId: string, taskId: string) => {
+      deleteTask(listId, taskId);
+    }
+  );
+  ipcMain.on(
     "saveTask",
     (_event: Electron.IpcMainEvent, title: string, taskId: string) => {
-      saveNewTask(title, taskId);
+      saveTask(title, taskId);
     }
   );
   ipcMain.on(
     "getTasksByListId",
     (_event: Electron.IpcMainEvent, listId: string) => {
       getTasksByListId(listId);
+    }
+  );
+  ipcMain.on(
+    "completedChanges",
+    (
+      _event: Electron.IpcMainEvent,
+      completed: boolean,
+      taskId: string,
+      listId: string
+    ) => {
+      completedChanges(completed, taskId, listId);
     }
   );
 }
