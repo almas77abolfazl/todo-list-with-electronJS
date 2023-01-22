@@ -26,9 +26,9 @@ function removeListsFromDom(): void {
 }
 
 function loadLists(): void {
+  const container = DomHelper.searchElement(".list-container");
   if (allLists.length) {
     allLists.forEach((list, index) => {
-      const container = DomHelper.searchElement(".list-container");
       const listNode = DomHelper.createElement("li");
       listNode.setAttribute("id", list.id.toString());
       const text = DomHelper.createTextNode(list.title);
@@ -42,6 +42,12 @@ function loadLists(): void {
       }
       listNode.addEventListener("click", onListClicked);
     });
+  } else {
+    const pNode = DomHelper.createElement("p");
+    pNode.classList.add("empty-list");
+    const text = DomHelper.createTextNode("There is no list!");
+    pNode.appendChild(text);
+    container?.appendChild(pNode);
   }
 }
 

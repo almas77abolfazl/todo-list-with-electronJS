@@ -12,24 +12,24 @@ import {
   getTasksByListId,
 } from "../bussiness/task-bussiness";
 
-export function onCreateMainWindow(mainWindow: Window): void {
+export function onCreateMainWindow(): void {
   ipcMain.on("addList", (_event: Electron.IpcMainEvent, _args) => {
-    showListWindow(mainWindow);
+    showListWindow();
   });
   ipcMain.on("editList", (_event: Electron.IpcMainEvent, listId) => {
-    showListWindow(mainWindow, listId);
+    showListWindow(listId);
   });
   ipcMain.on(
     "saveList",
     (_event: Electron.IpcMainEvent, title: string, listId: string) => {
-      saveNewList(mainWindow, title, listId);
+      saveNewList(title, listId);
     }
   );
   ipcMain.on("deleteList", (_event: Electron.IpcMainEvent, listId: string) => {
-    deleteList(mainWindow, listId);
+    deleteList(listId);
   });
   ipcMain.on("addTask", (_event: Electron.IpcMainEvent, listId: string) => {
-    addNewTask(mainWindow, listId);
+    addNewTask(listId);
   });
   ipcMain.on("saveTask", (_event: Electron.IpcMainEvent, title: string) => {
     saveNewTask(title);
@@ -37,11 +37,11 @@ export function onCreateMainWindow(mainWindow: Window): void {
   ipcMain.on(
     "getTasksByListId",
     (_event: Electron.IpcMainEvent, listId: string) => {
-      getTasksByListId(mainWindow, listId);
+      getTasksByListId(listId);
     }
   );
   setTimeout((timeOut) => {
-    sendAllLists(mainWindow);
+    sendAllLists();
     clearTimeout(timeOut);
-  }, 1500);
+  }, 1000);
 }

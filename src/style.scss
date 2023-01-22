@@ -125,6 +125,14 @@ body {
       width: 100%;
       padding: 10px;
     }
+
+    .empty-task,
+    .empty-list {
+      color: #837f68;
+      align-self: center;
+      top: 40%;
+      position: absolute;
+    }
   }
 
   .actions-section,
@@ -184,7 +192,7 @@ body {
     padding: 8px 12px;
   }
   &:hover {
-    background-color: #bab385;
+    background-color: #9b1e1e;
   }
 }
 

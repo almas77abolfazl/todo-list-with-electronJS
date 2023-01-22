@@ -2,15 +2,17 @@ import Window from "../../helpers/window";
 import crypto from "crypto";
 import { allLists, allTasks, store } from "../store-manager/store-manager";
 import { List } from "../../interfaces/list.interface";
+import { mainWindow } from "../../main";
+import { getTasksByListId } from "./task-bussiness";
 
 let addListUrl = `${__dirname}/gui/list-window.html`;
 let addListWindow: Window;
 
-export function sendAllLists(mainWindow: Window) {
+export function sendAllLists() {
   mainWindow.window.webContents.send("loadLists", allLists);
 }
 
-export function showListWindow(mainWindow: Window, listId?: string): void {
+export function showListWindow(listId?: string): void {
   addListWindow = new Window(addListUrl, {
     title: !!listId ? "Edit List" : "Add New List",
     width: 300,
@@ -31,11 +33,7 @@ export function showListWindow(mainWindow: Window, listId?: string): void {
   });
 }
 
-export function saveNewList(
-  mainWindow: Window,
-  title: string,
-  listId: string
-): void {
+export function saveNewList(title: string, listId: string): void {
   if (listId) {
     const list = allLists.find((x) => x.id === listId);
     list.title = title;
@@ -48,7 +46,7 @@ export function saveNewList(
   mainWindow.window.webContents.send("loadLists", allLists);
 }
 
-export function deleteList(mainWindow: Window, listId: string): void {
+export function deleteList(listId: string): void {
   const listIndex = allLists.findIndex((x) => x.id == listId);
   if (listIndex >= 0) {
     const tasksThatShouldBeDeleted = allTasks.filter((x) => x.listId == listId);
@@ -56,6 +54,7 @@ export function deleteList(mainWindow: Window, listId: string): void {
       const taskIndex = allTasks.findIndex((x) => x.id == task.id);
       allTasks.splice(taskIndex, 1);
       store.set("tasks", allTasks);
+      getTasksByListId(allLists[0].id);
     });
     allLists.splice(listIndex, 1);
     store.set("lists", allLists);

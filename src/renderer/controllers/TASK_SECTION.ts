@@ -26,9 +26,9 @@ function removeTasksFromDom(): void {
 }
 
 function loadTasks(): void {
+  const container = DomHelper.searchElement(".task-container");
   if (allTasks.length) {
     allTasks.forEach((task) => {
-      const container = DomHelper.searchElement(".task-container");
       const taskNode = DomHelper.createElement("div");
       taskNode.setAttribute("id", task.id.toString());
 
@@ -56,6 +56,12 @@ function loadTasks(): void {
       taskNode.addEventListener("click", onTaskClicked);
       taskNode.addEventListener("dblclick", onTaskDblClicked);
     });
+  }else {
+    const pNode = DomHelper.createElement("p");
+    pNode.classList.add("empty-task");
+    const text = DomHelper.createTextNode("There is no task!");
+    pNode.appendChild(text);
+    container?.appendChild(pNode);
   }
 }
 
