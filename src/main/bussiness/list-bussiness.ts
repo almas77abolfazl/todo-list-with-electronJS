@@ -1,6 +1,6 @@
 import Window from "../../helpers/window";
 import crypto from "crypto";
-import { allLists, store } from "../store-manager/store-manager";
+import { allLists, allTasks, store } from "../store-manager/store-manager";
 import { List } from "../../interfaces/list.interface";
 
 let addListUrl = `${__dirname}/gui/list-window.html`;
@@ -46,4 +46,19 @@ export function saveNewList(
   store.set("lists", allLists);
   addListWindow?.window.close();
   mainWindow.window.webContents.send("loadLists", allLists);
+}
+
+export function deleteList(mainWindow: Window, listId: string): void {
+  const listIndex = allLists.findIndex((x) => x.id == listId);
+  if (listIndex >= 0) {
+    const tasksThatShouldBeDeleted = allTasks.filter((x) => x.listId == listId);
+    tasksThatShouldBeDeleted.forEach((task) => {
+      const taskIndex = allTasks.findIndex((x) => x.id == task.id);
+      allTasks.splice(taskIndex, 1);
+      store.set("tasks", allTasks);
+    });
+    allLists.splice(listIndex, 1);
+    store.set("lists", allLists);
+    mainWindow.window.webContents.send("loadLists", allLists);
+  }
 }

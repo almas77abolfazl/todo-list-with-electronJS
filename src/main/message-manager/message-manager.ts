@@ -4,6 +4,7 @@ import {
   showListWindow,
   saveNewList,
   sendAllLists,
+  deleteList,
 } from "../bussiness/list-bussiness";
 import {
   addNewTask,
@@ -24,6 +25,9 @@ export function onCreateMainWindow(mainWindow: Window): void {
       saveNewList(mainWindow, title, listId);
     }
   );
+  ipcMain.on("deleteList", (_event: Electron.IpcMainEvent, listId: string) => {
+    deleteList(mainWindow, listId);
+  });
   ipcMain.on("addTask", (_event: Electron.IpcMainEvent, listId: string) => {
     addNewTask(mainWindow, listId);
   });

@@ -80,5 +80,7 @@ DomHelper.searchElement(".delete-list-button")?.addEventListener(
 );
 
 function deleteNewList(): void {
-  ipcRenderer.send("deleteList", true);
+  if (confirm("are you sure?!") == true) {
+    ipcRenderer.send("deleteList", lastSelectedList.id);
+  }
 }
