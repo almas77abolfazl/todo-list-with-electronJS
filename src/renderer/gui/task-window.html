@@ -12,8 +12,15 @@
     </div>
     <script>
       const { ipcRenderer } = require("electron");
+      let taskId = null;
+      ipcRenderer.on("getTaskDefaultValue", setDefaultValue);
+      function setDefaultValue(event, task) {
+        const titleInput = document.querySelector("#taskTitle");
+        titleInput.value = task.title;
+        taskId = task.id;
+      }
       function addNewTask(value) {
-        if (value) ipcRenderer.send("saveTask", value);
+        if (value) ipcRenderer.send("saveTask", value, taskId);
       }
     </script>
   </body>

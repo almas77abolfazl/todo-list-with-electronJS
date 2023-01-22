@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron";
 import { DomHelper } from "../../helpers/dom-helper";
 import { Task } from "../../interfaces/task.interface";
-import { TodoListContainer } from "./TODO_LIST_CONTAINER";
+import { TodoListContainer } from "./todo-list-container";
 
 let allTasks: Task[] = [];
 let lastSelectedTaskActions: Element = null;
@@ -55,8 +55,9 @@ function loadTasks(): void {
       container?.appendChild(taskNode);
       taskNode.addEventListener("click", onTaskClicked);
       taskNode.addEventListener("dblclick", onTaskDblClicked);
+      editButton.addEventListener("click", onTaskEditClicked);
     });
-  }else {
+  } else {
     const pNode = DomHelper.createElement("p");
     pNode.classList.add("empty-task");
     const text = DomHelper.createTextNode("There is no task!");
@@ -81,6 +82,15 @@ function onTaskDblClicked(event: PointerEvent): void {
   if (taskNode.classList.contains("completed")) {
     taskNode.classList.remove("completed");
   } else taskNode.classList.add("completed");
+}
+
+function onTaskEditClicked(event: PointerEvent): void {
+  const taskNode = event.currentTarget["closest"](".task") as HTMLDivElement;
+  ipcRenderer.send(
+    "editTask",
+    TodoListContainer.prototype.selectedListId,
+    taskNode.id
+  );
 }
 
 DomHelper.searchElement(".add-task-button")?.addEventListener(

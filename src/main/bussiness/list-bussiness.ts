@@ -5,15 +5,15 @@ import { List } from "../../interfaces/list.interface";
 import { mainWindow } from "../../main";
 import { getTasksByListId } from "./task-bussiness";
 
-let addListUrl = `${__dirname}/gui/list-window.html`;
-let addListWindow: Window;
+let listWindowUrl = `${__dirname}/gui/list-window.html`;
+let listWindow: Window;
 
 export function sendAllLists() {
   mainWindow.window.webContents.send("loadLists", allLists);
 }
 
 export function showListWindow(listId?: string): void {
-  addListWindow = new Window(addListUrl, {
+  listWindow = new Window(listWindowUrl, {
     title: !!listId ? "Edit List" : "Add New List",
     width: 300,
     height: 100,
@@ -22,14 +22,13 @@ export function showListWindow(listId?: string): void {
     parent: mainWindow.window,
   });
   if (!!listId) {
-    setTimeout((t) => {
+    listWindow.window.on("show", () => {
       const list = allLists.find((x) => x.id === listId);
-      addListWindow.window.webContents.send("getListDefaultValue", list);
-      clearTimeout(t);
-    }, 1000);
+      listWindow.window.webContents.send("getListDefaultValue", list);
+    });
   }
-  addListWindow.window.on("close", () => {
-    addListWindow = null;
+  listWindow.window.on("close", () => {
+    listWindow = null;
   });
 }
 
@@ -42,7 +41,7 @@ export function saveNewList(title: string, listId: string): void {
     allLists.push(newList);
   }
   store.set("lists", allLists);
-  addListWindow?.window.close();
+  listWindow?.window.close();
   mainWindow.window.webContents.send("loadLists", allLists);
 }
 

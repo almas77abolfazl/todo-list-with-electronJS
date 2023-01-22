@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron";
 import { DomHelper } from "../../helpers/dom-helper";
 import { List } from "../../interfaces/list.interface";
-import { TodoListContainer } from "./TODO_LIST_CONTAINER";
+import { TodoListContainer } from "./todo-list-container";
 
 let allLists: List[] = [];
 let lastSelectedList: HTMLElement = null;
@@ -86,7 +86,7 @@ DomHelper.searchElement(".delete-list-button")?.addEventListener(
 );
 
 function deleteNewList(): void {
-  if (confirm("are you sure?!") == true) {
+  if (lastSelectedList && confirm("are you sure?!") == true) {
     ipcRenderer.send("deleteList", lastSelectedList.id);
   }
 }

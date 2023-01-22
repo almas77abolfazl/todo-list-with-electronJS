@@ -1,6 +1,5 @@
 import { app, Menu } from "electron";
 import Window from "./helpers/window";
-
 import { onCreateMainWindow } from "./main/message-manager/message-manager";
 
 export let mainWindow: Window;

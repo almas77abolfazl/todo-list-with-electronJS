@@ -4,13 +4,13 @@ import { Task } from "../../interfaces/task.interface";
 import { allTasks, store } from "../store-manager/store-manager";
 import { mainWindow } from "../../main";
 
-let addTaskUrl = `${__dirname}/gui/task-window.html`;
-let addTaskWindow: Window;
+let taskWindowUrl = `${__dirname}/gui/task-window.html`;
+let taskWindow: Window;
 let currentListId: string = null;
 
-export function addNewTask(listId: string): void {
+export function showTaskWindow(listId: string, taskId?: string): void {
   currentListId = listId;
-  addTaskWindow = new Window(addTaskUrl, {
+  taskWindow = new Window(taskWindowUrl, {
     title: "Add New Task",
     width: 300,
     height: 100,
@@ -18,22 +18,33 @@ export function addNewTask(listId: string): void {
     resizable: false,
     parent: mainWindow.window,
   });
-  addTaskWindow.window.webContents.openDevTools();
-  addTaskWindow.window.on("close", () => {
-    addTaskWindow = null;
+  taskWindow.window.webContents.openDevTools();
+  if (!!taskId) {
+    taskWindow.window.on("show", () => {
+      const task = allTasks.find((x) => x.listId === listId && x.id == taskId);
+      taskWindow.window.webContents.send("getTaskDefaultValue", task);
+    });
+  }
+  taskWindow.window.on("close", () => {
+    taskWindow = null;
   });
 }
 
-export function saveNewTask(title: string): void {
-  const newList: Task = {
-    id: crypto.randomUUID(),
-    title,
-    listId: currentListId,
-    completed: false,
-  };
-  allTasks.push(newList);
+export function saveNewTask(title: string, taskId: string): void {
+  if (!!taskId) {
+    const task = allTasks.find((x) => x.id === taskId);
+    task.title = title;
+  } else {
+    const newList: Task = {
+      id: crypto.randomUUID(),
+      title,
+      listId: currentListId,
+      completed: false,
+    };
+    allTasks.push(newList);
+  }
   store.set("tasks", allTasks);
-  addTaskWindow?.window.close();
+  taskWindow?.window.close();
   getTasksByListId(currentListId);
 }
 
