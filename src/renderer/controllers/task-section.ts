@@ -27,12 +27,16 @@ function removeTasksFromDom(): void {
 
 function loadTasks(): void {
   const container = DomHelper.searchElement(".task-container");
+  let order = 0;
   if (allTasks.length) {
     DomHelper.searchElement(".empty-task")?.remove();
     allTasks.forEach((task) => {
       const taskNode = DomHelper.createElement("div");
       taskNode.setAttribute("id", task.id.toString());
-      if (task.completed) taskNode.classList.add("completed");
+      if (task.completed) {
+        taskNode.classList.add("completed");
+        taskNode.style.order = (++order).toString();
+      }
 
       const actionsNode = DomHelper.createElement("div");
       const editButton = DomHelper.createElement("button");
