@@ -1,13 +1,17 @@
 import { BrowserWindow } from "electron";
 
-const defaultProps: Readonly<any> = {
-  width: 800,
-  height: 800,
+const defaultProps: Readonly<Electron.BrowserWindowConstructorOptions> = {
   show: false,
+  backgroundColor: "#d5cea3",
+  titleBarStyle: "hidden",
+  titleBarOverlay: {
+    color: "#bfb88d",
+    symbolColor: "#000",
+    height: 26,
+  },
   webPreferences: {
     nodeIntegration: true,
     contextIsolation: false,
-    enableRemoteModule: true,
   },
 };
 

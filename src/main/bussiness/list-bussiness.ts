@@ -17,7 +17,6 @@ export function addNewList(mainWindow: Window): void {
     height: 100,
     modal: true,
     resizable: false,
-    autoHideMenuBar: true,
     parent: mainWindow.window,
   });
   addListWindow.window.on("close", () => {

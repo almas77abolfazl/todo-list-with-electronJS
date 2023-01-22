@@ -1,9 +1,20 @@
-<input id="taskTitle" type="text" placeholder="Task Title" />
-<input type="submit" value="save" onclick="addNewTask(taskTitle.value)" />
-
-<script>
-  const { ipcRenderer } = require("electron");
-  function addNewTask(value) {
-    if (value) ipcRenderer.send("saveTask", value);
-  }
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="main-page">
+      <div class="title-bar"></div>
+      <input id="taskTitle" type="text" placeholder="Task Title" />
+      <input type="submit" value="save" onclick="addNewTask(taskTitle.value)" />
+    </div>
+    <script>
+      const { ipcRenderer } = require("electron");
+      function addNewTask(value) {
+        if (value) ipcRenderer.send("saveTask", value);
+      }
+    </script>
+  </body>
+</html>

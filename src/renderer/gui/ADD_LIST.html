@@ -1,9 +1,20 @@
-<input id="listTitle" type="text" placeholder="List Title" />
-<input type="submit" value="save" onclick="addNewList(listTitle.value)" />
-
-<script>
-  const { ipcRenderer } = require("electron");
-  function addNewList(value) {
-    if (value) ipcRenderer.send("saveList", value);
-  }
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="main-page">
+      <div class="title-bar"></div>
+      <input id="listTitle" type="text" placeholder="List Title" />
+      <input type="submit" value="save" onclick="addNewList(listTitle.value)" />
+    </div>
+    <script>
+      const { ipcRenderer } = require("electron");
+      function addNewList(value) {
+        if (value) ipcRenderer.send("saveList", value);
+      }
+    </script>
+  </body>
+</html>
