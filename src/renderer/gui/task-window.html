@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="../style.css" />
   </head>
   <body>
-    <div class="main-page">
+    <div class="main-page" onkeyup="onKeyUp(event,taskTitle.value)">
       <div class="title-bar"></div>
-      <input id="taskTitle" type="text" placeholder="Task Title" />
-      <input type="submit" value="save" onclick="addNewTask(taskTitle.value)" />
+      <input id="taskTitle" type="text" placeholder="Task Title" autofocus />
+      <input type="submit" value="save" onclick="submit(taskTitle.value)" />
     </div>
     <script>
       const { ipcRenderer } = require("electron");
@@ -19,7 +19,10 @@
         titleInput.value = task.title;
         taskId = task.id;
       }
-      function addNewTask(value) {
+      function onKeyUp(e, value) {
+        if (e.key === "Enter" || e.keyCode === 13) submit(value);
+      }
+      function submit(value) {
         if (value) ipcRenderer.send("saveTask", value, taskId);
       }
     </script>

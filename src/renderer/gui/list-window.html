@@ -5,9 +5,9 @@
     <link rel="stylesheet" href="../style.css" />
   </head>
   <body>
-    <div class="main-page">
+    <div class="main-page" onkeyup="onKeyUp(event,listTitle.value)">
       <div class="title-bar"></div>
-      <input id="listTitle" type="text" placeholder="List Title" />
+      <input id="listTitle" type="text" placeholder="List Title" autofocus />
       <input type="submit" value="save" onclick="submit(listTitle.value)" />
     </div>
     <script>
@@ -18,6 +18,9 @@
         const titleInput = document.querySelector("#listTitle");
         titleInput.value = list.title;
         listId = list.id;
+      }
+      function onKeyUp(e, value) {
+        if (e.key === "Enter" || e.keyCode === 13) submit(value);
       }
       function submit(value) {
         if (value) ipcRenderer.send("saveList", value, listId);

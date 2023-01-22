@@ -199,3 +199,29 @@ body {
 .hide {
   display: none !important;
 }
+
+#listTitle {
+  position: relative;
+  top: 10px;
+  width: 60%;
+  height: 20px;
+  ~ input {
+    position: relative;
+    top: 10px;
+    width: 30%;
+    height: 20px;
+  }
+}
+
+#taskTitle {
+  position: relative;
+  top: 10px;
+  width: 60%;
+  height: 20px;
+  ~ input {
+    position: relative;
+    top: 10px;
+    width: 30%;
+    height: 20px;
+  }
+}

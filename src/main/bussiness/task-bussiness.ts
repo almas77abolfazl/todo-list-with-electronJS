@@ -18,7 +18,6 @@ export function showTaskWindow(listId: string, taskId?: string): void {
     resizable: false,
     parent: mainWindow.window,
   });
-  taskWindow.window.webContents.openDevTools();
   if (!!taskId) {
     taskWindow.window.on("show", () => {
       const task = allTasks.find((x) => x.listId === listId && x.id == taskId);

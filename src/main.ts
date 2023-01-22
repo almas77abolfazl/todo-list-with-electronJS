@@ -13,7 +13,6 @@ function createMainWindow(): void {
     minWidth: 300,
     minHeight: 300,
   });
-  mainWindow.window.webContents.openDevTools();
   onCreateMainWindow();
 }
 

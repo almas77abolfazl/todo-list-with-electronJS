@@ -49,7 +49,7 @@ function loadTasks(): void {
       actionsNode.appendChild(deleteButton);
       actionsNode.classList.add(...["actions-container", "hide"]);
       editButton.classList.add("secondary-button");
-      deleteButton.classList.add("secondary-button");
+      deleteButton.classList.add("negative-button");
 
       const textNode = DomHelper.createElement("p");
       const text = DomHelper.createTextNode(task.title);
