@@ -64,3 +64,21 @@ DomHelper.searchElement(".add-list-button")?.addEventListener(
 function addNewList(): void {
   ipcRenderer.send("addList", true);
 }
+
+DomHelper.searchElement(".edit-list-button")?.addEventListener(
+  "click",
+  editNewList
+);
+
+function editNewList(): void {
+  ipcRenderer.send("editList", lastSelectedList.id);
+}
+
+DomHelper.searchElement(".delete-list-button")?.addEventListener(
+  "click",
+  deleteNewList
+);
+
+function deleteNewList(): void {
+  ipcRenderer.send("deleteList", true);
+}

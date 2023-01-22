@@ -251,6 +251,18 @@
       "css": "linkedin-squared",
       "code": 62220,
       "src": "fontawesome"
+    },
+    {
+      "uid": "41087bc74d4b20b55059c60a33bf4008",
+      "css": "edit",
+      "code": 59442,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "d35a1d35efeb784d1dc9ac18b9b6c2b6",
+      "css": "pencil",
+      "code": 59441,
+      "src": "fontawesome"
     }
   ]
 }

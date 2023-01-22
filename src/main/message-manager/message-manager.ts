@@ -1,7 +1,7 @@
 import { ipcMain } from "electron";
 import Window from "../../helpers/window";
 import {
-  addNewList,
+  showListWindow,
   saveNewList,
   sendAllLists,
 } from "../bussiness/list-bussiness";
@@ -13,11 +13,17 @@ import {
 
 export function onCreateMainWindow(mainWindow: Window): void {
   ipcMain.on("addList", (_event: Electron.IpcMainEvent, _args) => {
-    addNewList(mainWindow);
+    showListWindow(mainWindow);
   });
-  ipcMain.on("saveList", (_event: Electron.IpcMainEvent, title: string) => {
-    saveNewList(mainWindow, title);
+  ipcMain.on("editList", (_event: Electron.IpcMainEvent, listId) => {
+    showListWindow(mainWindow, listId);
   });
+  ipcMain.on(
+    "saveList",
+    (_event: Electron.IpcMainEvent, title: string, listId: string) => {
+      saveNewList(mainWindow, title, listId);
+    }
+  );
   ipcMain.on("addTask", (_event: Electron.IpcMainEvent, listId: string) => {
     addNewTask(mainWindow, listId);
   });

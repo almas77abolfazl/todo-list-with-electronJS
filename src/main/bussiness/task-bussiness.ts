@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { Task } from "../../interfaces/task.interface";
 import { allTasks, store } from "../store-manager/store-manager";
 
-let addTaskUrl = `${__dirname}/gui/ADD_TASK.html`;
+let addTaskUrl = `${__dirname}/gui/task-window.html`;
 let addTaskWindow: Window;
 let currentListId: string = null;
 
@@ -17,6 +17,7 @@ export function addNewTask(mainWindow: Window, listId: string): void {
     resizable: false,
     parent: mainWindow.window,
   });
+  addTaskWindow.window.webContents.openDevTools();
   addTaskWindow.window.on("close", () => {
     addTaskWindow = null;
   });
