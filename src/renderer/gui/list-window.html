@@ -8,7 +8,7 @@
     <div class="main-page" onkeyup="onKeyUp(event,listTitle.value)">
       <div class="title-bar"></div>
       <input id="listTitle" type="text" placeholder="List Title" autofocus />
-      <input type="submit" value="save" onclick="submit(listTitle.value)" />
+      <input type="submit" value="save" onclick="submit(listTitle.value)" class="primary-button" />
     </div>
     <script>
       const { ipcRenderer } = require("electron");

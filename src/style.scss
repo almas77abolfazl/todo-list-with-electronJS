@@ -1,11 +1,17 @@
 @import "assets/icons/css/icon.css";
 
+@font-face {
+  font-family: "Yekan";
+  src: url("./assets/IRANYekanRegular.ttf") format("truetype");
+  font-weight: normal;
+}
+
 body {
   margin: 0;
 }
 
 * {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: yekan ,sans-serif;
 }
 
 /* width */
@@ -208,8 +214,8 @@ body {
   ~ input {
     position: relative;
     top: 10px;
-    width: 30%;
-    height: 20px;
+    width: 20%;
+    padding: 0;
   }
 }
 
@@ -221,7 +227,7 @@ body {
   ~ input {
     position: relative;
     top: 10px;
-    width: 30%;
-    height: 20px;
+    width: 20%;
+    padding: 0;
   }
 }
