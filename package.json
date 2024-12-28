@@ -4,7 +4,7 @@
   "description": "This is a todo list project with Electron JS.",
   "type": "commonjs",
   "scripts": {
-    "copyHtml": "xcopy .\\src\\renderer\\gui\\ .\\dist\\gui\\ /Y",
+    "copyHtml": "node copyHtml.js",
     "build": "npx webpack --config webpack.config.js && npm run copyHtml",
     "start": "npm run build && electron --inspect=5858 ./dist/main.js"
   },

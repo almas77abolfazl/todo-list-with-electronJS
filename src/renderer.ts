@@ -7,12 +7,12 @@ function loadTemplates(): void {
     const fileName = temp.innerHTML.replace(/@/gi, "");
     if (fileName) {
       fs.readFile(
-        `${__dirname}/gui/${fileName}.html`,
+        `${__dirname}/gui/${fileName}/${fileName}.html`,
         function read(err: any, data: any) {
           if (err) throw err;
           temp.innerHTML = data;
           temp.removeAttribute("temp");
-          import(`${__dirname}/renderer/controllers/${fileName}`).then();
+          import(`${__dirname}/renderer/${fileName}/${fileName}.ts`).then();
         }
       );
     }

@@ -5,8 +5,10 @@ import { List } from "../../interfaces/list.interface";
 import { mainWindow } from "../../main";
 import { getTasksByListId } from "./task-bussiness";
 
-let listWindowUrl = `${__dirname}/gui/list-window.html`;
+let listWindowUrl = `${__dirname}/gui/task-section/list-window.html`;
 let listWindow: Window;
+
+console.log("*******************   " + __dirname +  "   ********************")
 
 export function sendAllLists() {
   mainWindow.window.webContents.send("loadLists", allLists);

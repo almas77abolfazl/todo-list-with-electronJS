@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron";
-import { DomHelper } from "../../helpers/dom-helper";
-import { Task } from "../../interfaces/task.interface";
-import { TodoListContainer } from "./todo-list-container";
+import { DomHelper } from "../../../helpers/dom-helper";
+import { Task } from "../../../interfaces/task.interface";
+import { TodoListContainer } from "../todo-list-container/todo-list-container";
 
 let allTasks: Task[] = [];
 let lastSelectedTaskActions: Element = null;
