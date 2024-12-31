@@ -4,7 +4,7 @@ const path = require("path");
 
 module.exports = [
   {
-    entry: "./src/main.ts",
+    entry: "./src/main/main.ts",
     mode: "development",
     target: "electron-main",
     module: {
@@ -25,7 +25,7 @@ module.exports = [
     },
   },
   {
-    entry: "./src/renderer.ts",
+    entry: "./src/renderer/index.ts",
     mode: "development",
     target: "electron-renderer",
     module: {

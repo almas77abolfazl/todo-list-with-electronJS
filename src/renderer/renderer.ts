@@ -12,14 +12,9 @@ function loadTemplates(): void {
           if (err) throw err;
           temp.innerHTML = data;
           temp.removeAttribute("temp");
-          import(`${__dirname}/renderer/${fileName}/${fileName}.ts`).then();
         }
       );
     }
-    if (array.length === index + 1)
-      setTimeout((t: any) => {
-        loadTemplates();
-        clearTimeout(t);
-      }, 50);
   });
+  setTimeout(loadTemplates, 50);
 }

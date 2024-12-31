@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import { mainWindow } from "../../main";
+import { mainWindow } from "../main";
 import {
   showListWindow,
   saveList,

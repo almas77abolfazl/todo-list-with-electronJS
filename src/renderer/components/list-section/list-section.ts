@@ -63,31 +63,31 @@ function onListClicked(event: PointerEvent): void {
   }
 }
 
-DomHelper.searchElement(".add-list-button")?.addEventListener(
-  "click",
-  addNewList
-);
-
 function addNewList(): void {
   ipcRenderer.send("addList", true);
 }
 
-DomHelper.searchElement(".edit-list-button")?.addEventListener(
-  "click",
-  editNewList
-);
-
 function editNewList(): void {
   ipcRenderer.send("editList", lastSelectedList.id);
 }
-
-DomHelper.searchElement(".delete-list-button")?.addEventListener(
-  "click",
-  deleteNewList
-);
 
 function deleteNewList(): void {
   if (lastSelectedList && confirm("are you sure?!") == true) {
     ipcRenderer.send("deleteList", lastSelectedList.id);
   }
 }
+
+setTimeout(() => {
+  DomHelper.searchElement(".delete-list-button")?.addEventListener(
+    "click",
+    deleteNewList
+  );
+  DomHelper.searchElement(".add-list-button")?.addEventListener(
+    "click",
+    addNewList
+  );
+  DomHelper.searchElement(".edit-list-button")?.addEventListener(
+    "click",
+    editNewList
+  );
+}, 500);

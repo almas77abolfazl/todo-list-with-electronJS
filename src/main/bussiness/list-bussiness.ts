@@ -2,19 +2,26 @@ import Window from "../../helpers/window";
 import crypto from "crypto";
 import { allLists, allTasks, store } from "../store-manager/store-manager";
 import { List } from "../../interfaces/list.interface";
-import { mainWindow } from "../../main";
+import { mainWindow } from "../main";
 import { getTasksByListId } from "./task-bussiness";
 
-let listWindowUrl = `${__dirname}/gui/task-section/list-window.html`;
+let listWindowUrl = `${__dirname}\\gui\\list-section\\list-window.html`;
 let listWindow: Window;
 
-console.log("*******************   " + __dirname +  "   ********************")
+console.log("*******************   " + __dirname + "   ********************");
+console.log(
+  "*******************   " + listWindowUrl + "   ********************"
+);
 
 export function sendAllLists() {
   mainWindow.window.webContents.send("loadLists", allLists);
 }
 
 export function showListWindow(listId?: string): void {
+  console.log("hiiii");
+  console.log(__dirname);
+  console.log(listWindowUrl);
+
   listWindow = new Window(listWindowUrl, {
     title: !!listId ? "Edit List" : "Add New List",
     width: 300,

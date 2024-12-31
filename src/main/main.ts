@@ -1,6 +1,6 @@
 import { app, Menu } from "electron";
-import Window from "./helpers/window";
-import { onCreateMainWindow } from "./main/message-manager/message-manager";
+import Window from "../helpers/window";
+import { onCreateMainWindow } from "./message-manager/message-manager";
 
 export let mainWindow: Window;
 let indexHtmlFileAddress = `${__dirname}/index.html`;

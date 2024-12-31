@@ -2,7 +2,7 @@ import Window from "../../helpers/window";
 import crypto from "crypto";
 import { Task } from "../../interfaces/task.interface";
 import { allTasks, store } from "../store-manager/store-manager";
-import { mainWindow } from "../../main";
+import { mainWindow } from "../main";
 
 let taskWindowUrl = `${__dirname}/gui/task-section/task-window.html`;
 let taskWindow: Window;

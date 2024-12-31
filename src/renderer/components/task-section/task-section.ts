@@ -123,11 +123,13 @@ function onTaskDeleteClicked(event: PointerEvent): void {
   }
 }
 
-DomHelper.searchElement(".add-task-button")?.addEventListener(
-  "click",
-  addNewList
-);
-loadTasks();
+setTimeout(() => {
+  DomHelper.searchElement(".add-task-button")?.addEventListener(
+    "click",
+    addNewList
+  );
+  loadTasks();
+}, 500);
 
 function addNewList(): void {
   ipcRenderer.send("addTask", TodoListContainer.prototype.selectedListId);
